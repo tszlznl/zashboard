@@ -29,10 +29,10 @@
 </template>
 
 <script setup lang="ts">
+import { getHistoryByName, getLatencyByName } from '@/assembly/proxies'
 import { NOT_CONNECTED } from '@/constant'
 import { getColorForLatency } from '@/helper'
 import { useTooltip } from '@/helper/tooltip'
-import { getHistoryByName, getLatencyByName } from '@/assembly/proxies'
 import { BoltIcon } from '@heroicons/vue/24/outline'
 import { CountUp } from 'countup.js'
 import dayjs from 'dayjs'
@@ -77,14 +77,8 @@ const props = defineProps<{
 const latencyRef = ref<HTMLElement | null>(null)
 const latency = computed(() => getLatencyByName(props.name ?? '', props.groupName))
 let countUp: CountUp | null = null
-// 数字节点测速期间会被卸载,CountUp 实例跟着丢。记住上一次真正显示出来的数字,
-// 节点重新挂载时从它滚到新值,滚动效果才不会在每次测速后消失。
 let shownLatency = latency.value
 
-/*
- * 由节点自身的挂载来驱动重建:flush: 'post' 保证 DOM 已经补好,
- * 且在这一帧绘制前就把文本压回起始值,不会闪一下最终值。
- */
 watch(
   latencyRef,
   (el) => {
@@ -105,7 +99,6 @@ watch(
   { flush: 'post' },
 )
 
-// 节点还挂着的时候(比如自动测速刷新)直接滚过去,不用重建实例。
 watch(latency, (value) => {
   if (!countUp) return
 

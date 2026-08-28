@@ -8,15 +8,19 @@
       v-if="vertical"
       compact
     />
-    <button
-      class="btn btn-circle btn-sm"
+    <UButton
+      variant="ghost"
+      color="neutral"
+      size="sm"
+      class="rounded-full p-1.5"
+      :aria-label="isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
       @click="isSidebarCollapsed = !isSidebarCollapsed"
     >
       <component
         :is="isSidebarCollapsed ? ArrowRightCircleIcon : ArrowLeftCircleIcon"
         class="h-5 w-5"
       />
-    </button>
+    </UButton>
   </div>
 </template>
 

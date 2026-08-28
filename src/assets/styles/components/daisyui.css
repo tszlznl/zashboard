@@ -6,14 +6,14 @@
 /* ---------- 容器 ---------- */
 
 @utility card {
-  @apply bg-base-100 rounded-xl shadow-xs;
+  @apply bg-base-100 border-base-200/80 rounded-lg border shadow-xs;
   .card-body {
     @apply p-4;
   }
 }
 
 @utility collapse {
-  @apply bg-base-100 rounded-xl shadow-xs;
+  @apply bg-base-100 border-base-200/80 rounded-lg border shadow-xs;
 }
 
 .collapse.transparent-collapse {
@@ -23,21 +23,21 @@
 /* ---------- 表单控件 ---------- */
 
 @utility select {
-  @apply w-auto;
+  @apply w-auto rounded-md text-sm;
   appearance: none;
 }
 
 .input,
 .select,
 .textarea {
-  @apply border-base-border transition-[color,background-color,border-color,box-shadow] duration-200 ease-out;
+  @apply border-base-300 transition-[color,background-color,border-color,box-shadow] duration-150 ease-out;
   border-width: var(--border, 1px);
 }
 
 .input:hover:not(:focus, :focus-within, :disabled, [disabled]),
 .select:hover:not(:focus, :focus-within, :disabled, [disabled]),
 .textarea:hover:not(:focus, :focus-within, :disabled, [disabled]) {
-  border-color: color-mix(in srgb, var(--color-base-content) 18%, transparent);
+  border-color: color-mix(in srgb, var(--color-base-content) 25%, transparent);
 }
 
 .input:focus,
@@ -48,7 +48,7 @@
 .textarea:focus-within {
   @apply border-primary;
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 16%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 .input.input-error,
@@ -96,15 +96,15 @@
 /* ---------- 按钮与导航 ---------- */
 
 @utility btn {
-  @apply border-none;
+  @apply rounded-md border border-transparent font-medium tracking-tight transition-all duration-150;
 }
 
 @utility tabs {
   .tab {
-    @apply px-2;
+    @apply rounded-md px-3 py-1.5 font-medium transition-colors duration-150;
   }
   .tab.tab-active {
-    @apply bg-primary text-primary-content;
+    @apply bg-primary text-primary-content shadow-xs;
   }
 }
 

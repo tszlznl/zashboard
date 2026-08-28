@@ -1,7 +1,7 @@
 <template>
   <div
     ref="sidebarRef"
-    class="sidebar border-base-300/30 bg-base-200 text-base-content scrollbar-hidden h-full overflow-x-hidden border-r p-2 transition-[width,padding] duration-320 ease-[cubic-bezier(0.34,0.1,0.2,1)]"
+    class="sidebar border-base-300/60 bg-base-200/50 text-base-content scrollbar-hidden h-full overflow-x-hidden border-r p-2.5 transition-[width,padding] duration-320 ease-[cubic-bezier(0.34,0.1,0.2,1)]"
     :class="isSidebarCollapsed ? 'w-18 px-0' : 'w-64'"
     @transitionend="handleTransitionEnd"
   >
@@ -18,7 +18,7 @@
         />
         <ul
           ref="menuRef"
-          class="sidebar-route-menu menu h-full w-full"
+          class="sidebar-route-menu menu h-full w-full gap-0.5"
         >
           <li
             v-for="r in renderRoutes"
@@ -28,15 +28,15 @@
           >
             <a
               :class="[
-                r === route.name ? 'sidebar-tab-active' : 'hover:bg-base-300!',
+                r === route.name ? 'sidebar-tab-active' : 'hover:bg-base-300/60!',
                 isSidebarCollapsed && 'justify-center',
-                'relative z-10 py-2',
+                'relative z-10 rounded-md py-2 text-sm font-medium transition-colors',
               ]"
               @click.passive="() => router.push({ name: r })"
             >
               <component
                 :is="ROUTE_ICON_MAP[r]"
-                class="h-5 w-5"
+                class="h-4.5 w-4.5"
               />
               <template v-if="!isSidebarCollapsed">
                 {{ $t(r) }}

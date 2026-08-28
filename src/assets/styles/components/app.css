@@ -6,7 +6,7 @@
 /* ---------- 通用容器 ---------- */
 
 @utility base-container {
-  @apply bg-base-100 overflow-hidden rounded-xl shadow-xs;
+  @apply bg-base-100 border-base-200/80 overflow-hidden rounded-lg border shadow-xs;
 }
 
 /* 页面包裹层的底色。刻意不用 bg-base-200 工具类：见 utilities/appearance.css 里的说明。 */
@@ -15,11 +15,11 @@
 }
 
 @utility floating-menu-panel {
-  @apply border-base-border bg-base-100 text-base-content fixed z-[100000] overflow-y-auto rounded-lg border p-1 shadow-lg;
+  @apply border-base-300 bg-base-100 text-base-content fixed z-[100000] overflow-y-auto rounded-lg border p-1 shadow-lg backdrop-blur-md;
 }
 
 @utility floating-menu-option {
-  @apply flex cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors outline-none;
+  @apply flex cursor-pointer items-center rounded-md px-2.5 py-1.5 text-sm font-normal transition-colors outline-none;
 }
 
 .floating-menu-enter-active,
@@ -68,14 +68,14 @@
 /* ---------- 设置页 ---------- */
 
 .settings-section-label {
-  @apply px-1 pt-5 pb-2 text-xs tracking-wider uppercase first:pt-2;
-  color: color-mix(in srgb, var(--color-base-content) 40%, transparent);
+  @apply px-1 pt-5 pb-2 text-xs font-semibold tracking-wider uppercase first:pt-2;
+  color: color-mix(in srgb, var(--color-base-content) 55%, transparent);
 }
 .settings-grid {
-  @apply bg-base-100 grid grid-cols-1 overflow-hidden rounded-xl;
+  @apply bg-base-100 border-base-200/80 grid grid-cols-1 overflow-hidden rounded-lg border shadow-xs;
 }
 .setting-item {
-  @apply border-base-border flex min-h-12 items-center gap-3 border-b px-4 py-2 outline-none;
+  @apply border-base-200 flex min-h-12 items-center gap-3 border-b px-4 py-2.5 transition-colors outline-none;
   &:last-child {
     border-bottom: none;
   }
@@ -85,13 +85,13 @@
    * 需要标签独占一行的场景（配合 flex-1 输入框）在用处显式写 shrink-0!。
    */
   .setting-item-label {
-    @apply min-w-0 grow text-sm;
+    @apply min-w-0 grow text-sm font-medium;
     svg {
       @apply text-base-content/40 inline-block;
     }
   }
   .setting-item-summary {
-    @apply text-base-content/45 mt-0.5 block text-xs leading-4 font-normal;
+    @apply text-base-content/50 mt-0.5 block text-xs leading-4 font-normal;
   }
   &:focus-visible {
     @apply ring-primary ring-2 ring-inset;

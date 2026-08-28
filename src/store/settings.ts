@@ -113,8 +113,8 @@ const migrateIPAPISettings = () => {
 migrateIPAPISettings()
 
 // global
-export const defaultTheme = useStorage<string>('config/default-theme', 'light')
-export const darkTheme = useStorage<string>('config/dark-theme', 'dark')
+export const defaultTheme = useStorage<string>('config/default-theme', 'kumo-light')
+export const darkTheme = useStorage<string>('config/dark-theme', 'kumo-dark')
 export const autoTheme = useStorage<boolean>('config/auto-theme', true)
 export const theme = computed(() => {
   if (autoTheme.value && isPreferredDark.value) {
@@ -216,7 +216,7 @@ export const autoDisconnectIdleUDPTime = useStorage('config/auto-disconnect-idle
 export const keyboardShortcuts = useStorage<Record<string, string>>('config/keyboard-shortcuts', {})
 
 // overview
-export const splitOverviewPage = useStorage('config/split-overview-page', false)
+export const splitOverviewPage = useStorage('config/split-overview-page', true)
 export const autoIPCheck = useStorage('config/auto-ip-check', true)
 export const ipCheckPrimaryAPI = useStorage<IP_INFO_API>(
   'config/ip-check-primary-api',

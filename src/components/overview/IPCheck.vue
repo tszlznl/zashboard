@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-base-200/30 flex flex-col rounded-xl p-4">
+  <div class="bg-base-200/40 border-base-300/30 flex flex-col rounded-lg border p-4">
     <div class="flex items-center justify-between">
       <div class="text-base-content/60 text-xs font-semibold tracking-wider uppercase">
         {{ $t('networkInfo') }}
@@ -32,35 +32,35 @@
       <div>
         <SelectInput
           v-model="ipCheckPrimaryAPI"
-          class="select-ghost select-xs h-6 min-h-6 w-auto border-0"
+          class="select-ghost select-xs h-6 min-h-6 w-auto border-0 font-medium"
           :aria-label="`${t('IPInfoAPI')} 1`"
           :options="apiOptions"
         />
-        <div class="mt-1 text-sm">
+        <div class="mt-1 text-sm font-medium">
           {{ showPrivacy ? ipCheckPrimaryResult.ipWithPrivacy[0] : ipCheckPrimaryResult.ip[0] }}
           <span
             v-if="ipCheckPrimaryResult.ip[1]"
-            class="text-base-content/60 text-xs"
+            class="text-base-content/60 text-xs font-normal"
           >
             ({{ showPrivacy ? ipCheckPrimaryResult.ipWithPrivacy[1] : ipCheckPrimaryResult.ip[1] }})
           </span>
         </div>
       </div>
 
-      <div class="border-base-content/5 border-t" />
+      <div class="border-base-300/40 border-t" />
 
       <div>
         <SelectInput
           v-model="ipCheckSecondaryAPI"
-          class="select-ghost select-xs h-6 min-h-6 w-auto border-0"
+          class="select-ghost select-xs h-6 min-h-6 w-auto border-0 font-medium"
           :aria-label="`${t('IPInfoAPI')} 2`"
           :options="apiOptions"
         />
-        <div class="mt-1 text-sm">
+        <div class="mt-1 text-sm font-medium">
           {{ showPrivacy ? ipCheckSecondaryResult.ipWithPrivacy[0] : ipCheckSecondaryResult.ip[0] }}
           <span
             v-if="ipCheckSecondaryResult.ip[1]"
-            class="text-base-content/60 text-xs"
+            class="text-base-content/60 text-xs font-normal"
           >
             ({{
               showPrivacy ? ipCheckSecondaryResult.ipWithPrivacy[1] : ipCheckSecondaryResult.ip[1]

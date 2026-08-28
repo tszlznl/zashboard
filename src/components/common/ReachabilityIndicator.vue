@@ -26,13 +26,15 @@
       <template v-else>{{ message || $t('backendUnreachable') }}</template>
     </span>
 
-    <button
+    <UButton
       v-if="status === 'offline'"
-      class="btn btn-ghost btn-xs flex-none"
+      variant="ghost"
+      size="xs"
+      class="-my-0.5 flex-none"
       @click="$emit('retry')"
     >
       {{ $t('retry') }}
-    </button>
+    </UButton>
   </div>
 </template>
 

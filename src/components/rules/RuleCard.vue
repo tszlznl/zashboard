@@ -42,18 +42,17 @@
               @mouseenter="showMMDBSizeTip"
             />
           </span>
-          <button
+          <UButton
             v-if="isUpdateableRuleSet"
-            :class="
-              twMerge(
-                'btn btn-circle btn-ghost btn-xs -mt-[2px] ml-1',
-                isUpdating ? 'animate-spin' : '',
-              )
-            "
+            variant="ghost"
+            color="neutral"
+            size="xs"
+            class="-mt-0.5 ml-1 rounded-full p-1"
+            :loading="isUpdating"
             @click.stop="updateRuleProviderClickHandler"
           >
             <ArrowPathIcon class="h-3.5 w-3.5 opacity-60" />
-          </button>
+          </UButton>
           <InformationCircleIcon
             v-if="rule.extra"
             class="-mt-[2px] ml-1 inline-block h-4 w-4 opacity-60"
@@ -120,7 +119,6 @@ import {
   QuestionMarkCircleIcon,
 } from '@heroicons/vue/24/outline'
 import dayjs from 'dayjs'
-import { twMerge } from 'tailwind-merge'
 import type { Ref } from 'vue'
 import { computed, createApp, defineComponent, h, inject, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'

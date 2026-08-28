@@ -23,13 +23,15 @@
           placeholder="Type"
           :menus="['A', 'AAAA', 'HTTPS']"
         />
-        <button
+        <UButton
           type="submit"
-          class="btn join-item btn-sm"
+          color="primary"
+          size="sm"
+          class="join-item rounded-r-lg"
           :aria-label="$t('DNSQuery')"
         >
           <MagnifyingGlassIcon class="h-4 w-4" />
-        </button>
+        </UButton>
       </form>
     </div>
     <div
@@ -43,9 +45,13 @@
       >
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2">
-            <span class="bg-base-200 text-base-content/70 rounded-full px-2 py-0.5 text-[11px]">
+            <UBadge
+              variant="subtle"
+              size="xs"
+              class="font-mono text-[10px]"
+            >
               {{ getDnsTypeLabel(item.type) }}
-            </span>
+            </UBadge>
             <span class="text-base-content truncate text-sm">
               {{ item.name }}
             </span>

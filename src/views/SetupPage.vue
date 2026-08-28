@@ -10,9 +10,9 @@
       <LanguageSelect />
     </div>
     <div
-      class="border-base-border bg-base-100 mx-auto flex w-96 max-w-[90%] flex-col gap-3 rounded-xl border px-6 py-5 shadow-none max-sm:my-4"
+      class="border-base-border/80 bg-base-100/90 mx-auto flex w-96 max-w-[90%] flex-col gap-3 rounded-xl border p-6 shadow-sm backdrop-blur-md max-sm:my-4"
     >
-      <h1 class="mb-1 text-lg">{{ $t('setup') }}</h1>
+      <h1 class="mb-1 text-lg font-semibold tracking-tight">{{ $t('setup') }}</h1>
 
       <BackendForm v-model="form" />
 
@@ -24,27 +24,28 @@
         @retry="reachability.retry"
       />
 
-      <button
-        class="btn btn-primary btn-sm w-full"
+      <UButton
+        block
+        color="primary"
+        size="md"
+        :loading="isSubmitting"
         :disabled="!canSubmit"
         @click="handleSubmit(form)"
       >
-        <span
-          v-if="isSubmitting"
-          class="loading loading-spinner loading-xs"
-        ></span>
         {{ isSubmitting ? $t('backendConnecting') : $t('submit') }}
-      </button>
+      </UButton>
 
       <!-- 已经存过后端却落到这里(当前后端被删、或存档里的 uuid 失效),
            给一条回到管理面板的路,而不是逼他把地址重填一遍。 -->
-      <button
+      <UButton
         v-if="backendList.length"
-        class="btn btn-ghost btn-sm w-full"
+        block
+        variant="ghost"
+        size="sm"
         @click="openBackendManager()"
       >
         {{ $t('manageBackends') }}
-      </button>
+      </UButton>
 
       <div class="mt-4 sm:hidden">
         <LanguageSelect />

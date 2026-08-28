@@ -24,11 +24,11 @@
       /><span
         v-if="active"
         class="text-primary-content"
-        >{{ node.name }}</span
+        >{{ node?.name || name }}</span
       ><span
         v-else
         class="text-base-content"
-        >{{ node.name }}</span
+        >{{ node?.name || name }}</span
       >
     </div>
 
@@ -41,7 +41,7 @@
       </span>
       <LatencyTag
         :class="[isSmallCard && 'h-4! w-8! rounded-md!', 'shrink-0']"
-        :name="node.name"
+        :name="node?.name || name"
         :loading="isLatencyTesting"
         :group-name="groupName"
         @click.stop="handlerLatencyTest"
@@ -51,11 +51,10 @@
 </template>
 
 <script setup lang="ts">
+import { getIPv6ByName, getTestUrl, proxyLatencyTest, proxyMap } from '@/assembly/proxies'
 import { PROXY_CARD_SIZE, PROXY_SORT_TYPE } from '@/constant'
 import { checkTruncation } from '@/helper/tooltip'
 import { scrollIntoCenter } from '@/helper/utils'
-import { proxyLatencyTest } from '@/assembly/proxies'
-import { getIPv6ByName, getTestUrl, proxyMap } from '@/assembly/proxies'
 import { IPv6test, proxyCardSize, proxySortType, truncateProxyName } from '@/store/settings'
 import { smartWeightsMap } from '@/store/smart'
 import { twMerge } from 'tailwind-merge'
@@ -71,7 +70,7 @@ const props = defineProps<{
   groupName?: string
 }>()
 
-const cardRef = ref()
+const cardRef = ref<HTMLElement>()
 const node = computed(() => proxyMap.value[props.name])
 const isLatencyTesting = ref(false)
 const typeFormatter = (type: string) => {
@@ -84,11 +83,11 @@ const typeFormatter = (type: string) => {
 }
 const isSmallCard = computed(() => proxyCardSize.value === PROXY_CARD_SIZE.SMALL)
 const typeDescription = computed(() => {
-  const type = typeFormatter(node.value.type)
+  const type = node.value?.type ? typeFormatter(node.value.type) : ''
   const smartUsage = smartWeightsMap.value[props.groupName ?? '']?.[props.name]
   const smartDesc = smartUsage ? t(smartUsage) : ''
-  const isV6 = IPv6test.value && getIPv6ByName(node.value.name) ? 'IPv6' : ''
-  const isUDP = node.value.udp ? (node.value.xudp ? 'xudp' : 'udp') : ''
+  const isV6 = IPv6test.value && getIPv6ByName(node.value?.name ?? '') ? 'IPv6' : ''
+  const isUDP = node.value?.udp ? (node.value?.xudp ? 'xudp' : 'udp') : ''
 
   return [type, isUDP, smartDesc, isV6].filter(Boolean).join(isSmallCard.value ? '/' : ' / ')
 })
@@ -109,7 +108,6 @@ const handlerLatencyTest = async () => {
     [PROXY_SORT_TYPE.LATENCY_ASC, PROXY_SORT_TYPE.LATENCY_DESC].includes(proxySortType.value) &&
     cardRef.value
   ) {
-    // 等排序后的 DOM 落地再量位置,否则拿到的还是重排前的旧坐标。
     await nextTick()
     scrollIntoCenter(cardRef.value)
     latencyTipAnimationClass.value = ['latency-highlight']
@@ -120,9 +118,11 @@ const handlerLatencyTest = async () => {
 }
 
 onMounted(() => {
-  if (props.active) {
+  if (props.active && cardRef.value) {
     setTimeout(() => {
-      scrollIntoCenter(cardRef.value)
+      if (cardRef.value) {
+        scrollIntoCenter(cardRef.value)
+      }
     }, 300)
   }
 })

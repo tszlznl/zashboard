@@ -6,6 +6,9 @@
 @config '../../../../tailwind.config.ts';
 
 @plugin 'daisyui' {
-  themes: all;
+  themes:
+    all,
+    kumo-dark --default,
+    kumo-light --preferslight;
   exclude: rootscrollgutter;
 }

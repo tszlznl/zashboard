@@ -321,6 +321,9 @@ export const DETAILED_CARD_STYLE = [
 ]
 
 export const ALL_THEME = [
+  'kumo-dark',
+  'kumo-light',
+  'kumo-emerald',
   'light',
   'dark',
   'light-neutral',

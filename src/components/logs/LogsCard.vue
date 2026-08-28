@@ -7,15 +7,17 @@
       >
         {{ seqWithPadding }}
       </span>
-      <span
-        class="text-[11px] tracking-wide uppercase"
-        :class="colorMapForType[log.type as keyof typeof colorMapForType]"
+      <UBadge
+        :color="badgeColorForType[log.type as keyof typeof badgeColorForType] || 'neutral'"
+        variant="subtle"
+        size="xs"
+        class="font-mono text-[10px] uppercase"
       >
         <HighlightText
           :text="log.type"
           :filter="logFilter"
         />
-      </span>
+      </UBadge>
       <div class="flex-1"></div>
       <span class="text-base-content/40 text-xs tabular-nums">
         <HighlightText
@@ -50,14 +52,15 @@ const seqWithPadding = computed(() => {
   return props.log.seq.toString().padStart(2, '0')
 })
 
-const colorMapForType = {
-  [LOG_LEVEL.Trace]: 'text-success',
-  [LOG_LEVEL.Debug]: 'text-accent',
-  [LOG_LEVEL.Info]: 'text-info',
-  [LOG_LEVEL.Warning]: 'text-warning',
-  [LOG_LEVEL.Error]: 'text-error',
-  [LOG_LEVEL.Fatal]: 'text-error',
-  [LOG_LEVEL.Panic]: 'text-error',
+type BadgeColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'neutral'
+const badgeColorForType: Record<string, BadgeColor> = {
+  [LOG_LEVEL.Trace]: 'success',
+  [LOG_LEVEL.Debug]: 'secondary',
+  [LOG_LEVEL.Info]: 'info',
+  [LOG_LEVEL.Warning]: 'warning',
+  [LOG_LEVEL.Error]: 'error',
+  [LOG_LEVEL.Fatal]: 'error',
+  [LOG_LEVEL.Panic]: 'error',
 }
 
 useBounceOnVisible()

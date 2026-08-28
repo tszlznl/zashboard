@@ -3,13 +3,17 @@
     <!-- Surge-style stat cards -->
     <div class="charts-card-grid grid grid-cols-2 gap-3">
       <!-- Upload Speed -->
-      <div class="bg-base-200/30 flex flex-col gap-1.5 rounded-xl p-4">
+      <div
+        class="bg-base-200/40 border-base-300/30 flex flex-col gap-1.5 rounded-lg border p-4 transition-all"
+      >
         <div class="text-base-content/60 text-xs font-semibold tracking-wider uppercase">
           {{ $t('upload') }}
         </div>
         <div class="flex items-baseline gap-1.5">
-          <span class="text-3xl font-extralight tabular-nums">{{ ulSpeedParts.value }}</span>
-          <span class="text-base-content/60 text-sm">{{ ulSpeedParts.unit }}/s</span>
+          <span class="text-3xl font-light tracking-tight tabular-nums">{{
+            ulSpeedParts.value
+          }}</span>
+          <span class="text-base-content/60 text-xs font-medium">{{ ulSpeedParts.unit }}/s</span>
         </div>
         <div class="mt-1 h-14">
           <SparklineChart
@@ -22,17 +26,23 @@
             :tooltip-formatter="speedTooltipFormatter"
           />
         </div>
-        <div class="text-base-content/50 text-xs">{{ $t('total') }} {{ ulTotalStr }}</div>
+        <div class="text-base-content/50 text-xs font-medium">
+          {{ $t('total') }} {{ ulTotalStr }}
+        </div>
       </div>
 
       <!-- Download Speed -->
-      <div class="bg-base-200/30 flex flex-col gap-1.5 rounded-xl p-4">
+      <div
+        class="bg-base-200/40 border-base-300/30 flex flex-col gap-1.5 rounded-lg border p-4 transition-all"
+      >
         <div class="text-base-content/60 text-xs font-semibold tracking-wider uppercase">
           {{ $t('download') }}
         </div>
         <div class="flex items-baseline gap-1.5">
-          <span class="text-3xl font-extralight tabular-nums">{{ dlSpeedParts.value }}</span>
-          <span class="text-base-content/60 text-sm">{{ dlSpeedParts.unit }}/s</span>
+          <span class="text-3xl font-light tracking-tight tabular-nums">{{
+            dlSpeedParts.value
+          }}</span>
+          <span class="text-base-content/60 text-xs font-medium">{{ dlSpeedParts.unit }}/s</span>
         </div>
         <div class="mt-1 h-14">
           <SparklineChart
@@ -44,17 +54,19 @@
             :tooltip-formatter="speedTooltipFormatter"
           />
         </div>
-        <div class="text-base-content/50 text-xs">{{ $t('total') }} {{ dlTotalStr }}</div>
+        <div class="text-base-content/50 text-xs font-medium">
+          {{ $t('total') }} {{ dlTotalStr }}
+        </div>
       </div>
 
       <!-- Active Connections -->
       <div
-        class="charts-card-connections bg-base-200/30 col-span-2 flex flex-col gap-1.5 rounded-xl p-4"
+        class="charts-card-connections bg-base-200/40 border-base-300/30 col-span-2 flex flex-col gap-1.5 rounded-lg border p-4 transition-all"
       >
         <div class="text-base-content/60 text-xs font-semibold tracking-wider uppercase">
           {{ $t('connections') }}
         </div>
-        <div class="text-3xl font-extralight tabular-nums">
+        <div class="text-3xl font-light tracking-tight tabular-nums">
           {{ connectionCount }}
         </div>
         <div class="mt-1 h-14">
@@ -67,7 +79,9 @@
             :tooltip-formatter="connTooltipFormatter"
           />
         </div>
-        <div class="text-base-content/50 flex items-center justify-between gap-2 text-xs">
+        <div
+          class="text-base-content/50 flex items-center justify-between gap-2 text-xs font-medium"
+        >
           <span>{{ $t('memoryUsage') }} {{ memoryStr }}</span>
         </div>
       </div>

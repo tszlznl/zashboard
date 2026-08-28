@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-base-200/30 flex flex-col rounded-xl p-4">
+  <div class="bg-base-200/40 border-base-300/30 flex flex-col rounded-lg border p-4">
     <div class="flex items-center justify-between">
       <div class="text-base-content/60 text-xs font-semibold tracking-wider uppercase">
         {{ $t('latency') }}
@@ -23,7 +23,7 @@
         class="flex flex-col gap-0.5"
       >
         <div class="flex items-center gap-1.5">
-          <span class="text-base-content/70 inline-block w-14 shrink-0 text-xs">{{
+          <span class="text-base-content/70 inline-block w-14 shrink-0 text-xs font-medium">{{
             item.name
           }}</span>
           <LatencyChart

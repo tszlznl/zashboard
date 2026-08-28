@@ -37,18 +37,21 @@
           />
           {{ confirmDialogState.checkboxText }}
         </label>
-        <button
-          class="btn btn-sm"
+        <UButton
+          variant="outline"
+          color="neutral"
+          size="sm"
           @click="handleCancel"
         >
           {{ confirmDialogState.cancelText || $t('cancel') }}
-        </button>
-        <button
-          :class="['btn btn-sm', confirmDialogState.confirmButtonClass || 'btn-primary']"
+        </UButton>
+        <UButton
+          color="primary"
+          size="sm"
           @click="handleConfirm"
         >
           {{ confirmDialogState.confirmText || $t('confirm') }}
-        </button>
+        </UButton>
       </div>
     </div>
   </DialogWrapper>

@@ -18,11 +18,14 @@
 
 /* 中性主题下延迟色也要去彩，避免和低饱和配色打架 */
 [data-theme='light-neutral'],
-[data-theme='dark-neutral'] {
-  --color-low-latency: oklch(0.551 0.08 167);
-  --color-medium-latency: oklch(0.72 0.14 85);
-  --color-high-latency: oklch(0.56 0.17 22);
-  --color-backend-online: oklch(0.62 0.045 167);
+[data-theme='dark-neutral'],
+[data-theme='kumo-light'],
+[data-theme='kumo-dark'],
+[data-theme='kumo-emerald'] {
+  --color-low-latency: oklch(0.66 0.1 160);
+  --color-medium-latency: oklch(0.75 0.14 85);
+  --color-high-latency: oklch(0.58 0.18 25);
+  --color-backend-online: oklch(0.65 0.12 162);
 }
 
 /* 暴露给 Tailwind，使 bg-base-150 / border-base-border 这类工具类可用 */

@@ -1,5 +1,6 @@
 import '@/api/http'
 import '@/helper/dayjs'
+import ui from '@nuxt/ui/vue-plugin'
 import 'tippy.js/animations/scale.css'
 import 'tippy.js/dist/tippy.css'
 import { createApp } from 'vue'
@@ -28,4 +29,5 @@ const app = createApp(App)
 
 app.use(router)
 app.use(i18n)
+app.use(ui)
 app.mount('#app')

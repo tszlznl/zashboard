@@ -1,3 +1,4 @@
+import ui from '@nuxt/ui/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { execSync } from 'child_process'
@@ -37,8 +38,8 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    ui(),
     VitePWA({
-      registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'favicon-dark.svg'],
       workbox: {
         // The globe is lazy-loaded, but its local textures and bundled attribution must
@@ -86,6 +87,26 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/echarts') || id.includes('node_modules/zrender')) {
+            return 'echarts'
+          }
+          if (id.includes('node_modules/three')) {
+            return 'three'
+          }
+          if (id.includes('node_modules/@tanstack')) {
+            return 'tanstack'
+          }
+          if (id.includes('node_modules/@nuxt/ui') || id.includes('node_modules/reka-ui')) {
+            return 'nuxt-ui'
+          }
+        },
+      },
     },
   },
 })

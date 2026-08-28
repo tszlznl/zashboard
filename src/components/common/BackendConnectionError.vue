@@ -32,23 +32,25 @@
         </div>
 
         <div class="flex gap-2">
-          <button
-            class="btn btn-primary btn-sm flex-1"
+          <UButton
+            color="primary"
+            size="sm"
+            class="flex-1"
+            :loading="isRetrying"
             :disabled="isRetrying"
             @click="retry"
           >
-            <span
-              v-if="isRetrying"
-              class="loading loading-spinner loading-xs"
-            ></span>
             {{ isRetrying ? $t('backendConnecting') : $t('retry') }}
-          </button>
-          <button
-            class="btn btn-sm flex-1"
+          </UButton>
+          <UButton
+            variant="outline"
+            color="neutral"
+            size="sm"
+            class="flex-1"
             @click="editActiveBackend"
           >
             {{ $t('editBackendTitle') }}
-          </button>
+          </UButton>
         </div>
 
         <template v-if="otherBackends.length">
@@ -67,25 +69,28 @@
               <ChevronRightIcon class="text-base-content/30 h-4 w-4 flex-none" />
             </button>
           </div>
-          <button
-            class="btn btn-ghost btn-sm"
+          <UButton
+            variant="ghost"
+            color="neutral"
+            size="sm"
+            block
+            :loading="isSwitching"
             :disabled="isSwitching"
             @click="switchToReachableBackend"
           >
-            <span
-              v-if="isSwitching"
-              class="loading loading-spinner loading-sm"
-            ></span>
             {{ $t('autoSwitchBackend') }}
-          </button>
+          </UButton>
         </template>
 
-        <button
-          class="btn btn-ghost btn-sm"
+        <UButton
+          variant="ghost"
+          color="neutral"
+          size="sm"
+          block
           @click="openBackendManager()"
         >
           {{ $t('manageBackends') }}
-        </button>
+        </UButton>
       </div>
     </div>
   </Transition>

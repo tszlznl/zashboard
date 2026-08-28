@@ -3,30 +3,39 @@
     <div class="setting-item-label">
       {{ $t('language') }}
     </div>
-    <SelectInput
-      class="select select-sm w-48"
+    <USelect
       v-model="language"
-      :options="
-        Object.values(LANG).map((value) => ({ value, label: langLabelMap[value] || value }))
-      "
-      @change="locale = language"
+      :items="langOptions"
+      size="sm"
+      class="w-48"
+      @update:model-value="handleLanguageChange"
     />
   </SettingItem>
 </template>
 
 <script setup lang="ts">
 import SettingItem from '@/components/settings/SettingItem.vue'
-import SelectInput from '@/components/common/SelectInput.vue'
 import { GENERAL_ITEM_KEYS } from '@/config/settingsItems'
 import { LANG } from '@/constant'
 import { language } from '@/store/settings'
 import { useI18n } from 'vue-i18n'
 
 const { locale } = useI18n()
-const langLabelMap = {
+const langLabelMap: Record<string, string> = {
   [LANG.EN_US]: 'English',
   [LANG.ZH_CN]: '简体中文',
   [LANG.ZH_TW]: '繁體中文',
   [LANG.RU_RU]: 'Русский',
+}
+
+const langOptions = Object.values(LANG).map((value) => ({
+  value,
+  label: langLabelMap[value] || value,
+}))
+
+const handleLanguageChange = (val: unknown) => {
+  if (typeof val === 'string') {
+    locale.value = val
+  }
 }
 </script>

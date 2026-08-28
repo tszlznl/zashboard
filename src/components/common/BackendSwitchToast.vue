@@ -32,12 +32,15 @@
           {{ latency }} ms
         </span>
 
-        <button
-          class="btn btn-circle btn-ghost btn-xs flex-none"
+        <UButton
+          variant="ghost"
+          color="neutral"
+          size="xs"
+          class="flex-none rounded-full p-1"
           @click="hide"
         >
           <XMarkIcon class="h-3.5 w-3.5" />
-        </button>
+        </UButton>
       </div>
 
       <div
