@@ -4,14 +4,14 @@ import { toggleRuleDisabledAPI, toggleRuleDisabledRefindAPI } from '@/api/clash'
 import { RULE_TAB_TYPE } from '@/constant'
 import { toSearchRegex } from '@/helper/search'
 import type { Rule, RuleProvider } from '@/types'
-import { computed, ref } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import * as clash from './clash'
 
 export const rulesFilter = ref('')
 export const rulesTabShow = ref(RULE_TAB_TYPE.RULES)
 
-export const rules = ref<Rule[]>([])
-export const ruleProviderList = ref<RuleProvider[]>([])
+export const rules = shallowRef<Rule[]>([])
+export const ruleProviderList = shallowRef<RuleProvider[]>([])
 
 export const renderRules = computed(() => {
   const searchRegex = toSearchRegex(rulesFilter.value)

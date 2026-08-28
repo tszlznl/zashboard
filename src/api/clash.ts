@@ -9,7 +9,7 @@
 // 兼容实现未覆盖的 mihomo 标准端点视为能力不足,由 assembly/backend.ts
 // 的能力表记录。本层只按来源归类请求,不做任何后端判断。
 import type { ProbeResult } from '@/helper/connectivity'
-import { getUrlFromBackend } from '@/helper/utils'
+import { debounce, getUrlFromBackend } from '@/helper/utils'
 import { activeBackend } from '@/store/setup'
 import type {
   Backend,
@@ -23,7 +23,6 @@ import type {
   RuleProvider,
 } from '@/types'
 import axios from 'axios'
-import { debounce } from 'lodash'
 import ReconnectingWebSocket from 'reconnectingwebsocket'
 import { shallowRef } from 'vue'
 

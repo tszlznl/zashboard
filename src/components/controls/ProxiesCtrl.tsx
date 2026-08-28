@@ -38,7 +38,6 @@ import {
   RectangleGroupIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/vue/24/outline'
-import { every } from 'lodash'
 import { computed, defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -85,7 +84,7 @@ export default defineComponent({
       return configs.value?.['mode-list'] || configs.value?.['modes'] || defaultModes
     })
     const needTranslateModes = computed(() => {
-      return every(modeList.value, (mode) => defaultModes.includes(mode.toLowerCase()))
+      return modeList.value.every((mode) => defaultModes.includes(mode.toLowerCase()))
     })
 
     const handlerModeChange = (mode: string) => {

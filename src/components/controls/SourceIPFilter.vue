@@ -15,11 +15,11 @@ import { connections, sourceIPFilter } from '@/store/connections'
 import { resolveClientHostname } from '@/store/settings'
 import { activeUuid } from '@/store/setup'
 import * as ipaddr from 'ipaddr.js'
-import { isEqual, uniq } from 'lodash'
+import { isEqual } from '@/helper/utils'
 import { computed, ref, watch } from 'vue'
 
 const sourceIPs = computed(() => {
-  return uniq(connections.value.map(getConnectionSourceIP)).sort((a, b) => {
+  return [...new Set(connections.value.map(getConnectionSourceIP))].sort((a, b) => {
     if (!ipaddr.isValid(a)) return -1
     if (!ipaddr.isValid(b)) return 1
 

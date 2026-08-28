@@ -4,7 +4,6 @@ import { showNotification } from '@/helper/notification'
 import { useStorage } from '@/helper/storage'
 import { applyDashboardSettingsToStorage } from '@/helper/utils'
 import { i18n } from '@/i18n'
-import { isEmpty } from 'lodash'
 const IMPORT_SETTINGS_URL_KEY = 'config/import-settings-url'
 
 export const DEFAULT_SETTINGS_URL = './zashboard-settings.json'
@@ -83,7 +82,7 @@ export const syncSettingsFromCore = async ({
 } = {}) => {
   const { data } = await getStorageAPI()
 
-  if (!data || isEmpty(data)) {
+  if (!data || Object.keys(data).length === 0) {
     return false
   }
 

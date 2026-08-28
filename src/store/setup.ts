@@ -1,6 +1,6 @@
 import { useStorage } from '@/helper/storage'
+import { isEqual } from '@/helper/utils'
 import type { Backend } from '@/types'
-import { isEqual, omit } from 'lodash'
 import { v4 as uuid } from 'uuid'
 import { computed, ref } from 'vue'
 import { sourceIPLabelList } from './settings'
@@ -17,8 +17,11 @@ const isLegacyBackend = (item: LegacyBackend) =>
 const migrateBackendList = (list: LegacyBackend[]): Backend[] =>
   list
     .filter((item) => item.type !== 'singbox')
-    .map((item) => ({ ...(omit(item, 'singboxChannel') as Backend), type: 'clash' }))
-
+    .map((item) => {
+      const rest = { ...item } as Partial<Backend> & { singboxChannel?: unknown }
+      delete rest.singboxChannel
+      return { ...(rest as Backend), type: 'clash' }
+    })
 export const backendList = useStorage<Backend[]>('setup/api-list', [])
 
 if ((backendList.value as LegacyBackend[]).some(isLegacyBackend)) {
@@ -81,7 +84,9 @@ export const switchActiveBackend = (direction: 1 | -1) => {
 
 export const addBackend = (backend: Omit<Backend, 'uuid'>) => {
   const currentEnd = backendList.value.find((end) => {
-    return isEqual(omit(end, 'uuid'), backend)
+    const rest = { ...end } as Partial<Backend>
+    delete rest.uuid
+    return isEqual(rest, backend)
   })
 
   if (currentEnd) {

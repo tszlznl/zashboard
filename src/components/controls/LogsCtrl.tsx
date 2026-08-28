@@ -1,6 +1,7 @@
 import { useCtrlsBar } from '@/composables/useCtrlsBar'
 import { LIST_DISPLAY_STYLE, LOG_LEVEL } from '@/constant'
 import { useTooltip } from '@/helper/tooltip'
+import { debounce } from '@/helper/utils'
 import {
   initLogs,
   isPaused,
@@ -24,7 +25,6 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import dayjs from 'dayjs'
-import { debounce } from 'lodash'
 import { computed, defineComponent, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import CtrlsBar from '../common/CtrlsBar.vue'

@@ -24,7 +24,6 @@ import {
   NoSymbolIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import { first, last } from 'lodash'
 import { defineComponent } from 'vue'
 import type { JSX } from 'vue/jsx-runtime'
 import HighlightText from '../common/HighlightText.vue'
@@ -117,16 +116,16 @@ export default defineComponent<{
           >
             {
               <ProxyName
-                name={last(chains)!}
+                name={chains.at(-1)!}
                 filter={connectionFilter.value}
               />
             }
-            {last(chains) !== first(chains) && (
+            {chains.at(-1) !== chains[0] && (
               <>
                 <ArrowRightCircleIcon class="h-4 w-4 shrink-0"></ArrowRightCircleIcon>
                 {
                   <ProxyName
-                    name={first(chains)!}
+                    name={chains[0]!}
                     filter={connectionFilter.value}
                   />
                 }

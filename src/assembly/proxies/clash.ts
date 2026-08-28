@@ -26,7 +26,6 @@ import {
 } from '@/store/settings'
 import { initSmartWeights } from '@/store/smart'
 import type { Proxy } from '@/types'
-import { last } from 'lodash'
 import pLimit from 'p-limit'
 import {
   getHistoryByName,
@@ -126,8 +125,15 @@ export const handlerProxySelect = async (proxyGroupName: string, proxyName: stri
   }
 
   await selectProxyAPI(proxyGroupName, proxyName)
-  proxyMap.value[proxyGroupName].now = proxyName
-
+  if (proxyMap.value[proxyGroupName]) {
+    proxyMap.value = {
+      ...proxyMap.value,
+      [proxyGroupName]: {
+        ...proxyGroup,
+        now: proxyName,
+      },
+    }
+  }
   if (automaticDisconnection.value) {
     activeConnections.value
       .filter((c) => getConnectionChains(c).includes(proxyGroupName))
@@ -377,6 +383,5 @@ export const allProxiesLatencyTest = async () => {
 
 const getIPv6FromExtra = (proxy: Proxy) => {
   const ipv6History = proxy.extra?.[IPV6_TEST_URL]?.history
-
-  return (last(ipv6History)?.delay ?? NOT_CONNECTED) > NOT_CONNECTED
+  return (ipv6History?.at(-1)?.delay ?? NOT_CONNECTED) > NOT_CONNECTED
 }

@@ -8,7 +8,6 @@ import { isMiddleScreen } from '@/helper/utils'
 import { connectionTabShow } from '@/store/connections'
 import { swipeInPages, swipeInTabs } from '@/store/settings'
 import { useEventListener } from '@vueuse/core'
-import { flatten } from 'lodash'
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -80,45 +79,43 @@ export const useSwipeRouter = () => {
   const { isSettingsSubPage, exitSection } = useSettingsSection()
 
   const swipeList = computed(() => {
-    return flatten(
-      renderRoutes.value.map((r) => {
-        if (swipeInTabs.value) {
-          if (r === ROUTE_NAME.proxies && proxyProviederList.value.length > 0) {
-            return Object.values(PROXY_TAB_TYPE).map((tab) => {
-              return [
-                () => route.name === ROUTE_NAME.proxies && proxiesTabShow.value === tab,
-                () => {
-                  router.push({ name: ROUTE_NAME.proxies })
-                  proxiesTabShow.value = tab
-                },
-              ]
-            })
-          } else if (r === ROUTE_NAME.connections) {
-            return Object.values(CONNECTION_TAB_TYPE).map((tab) => {
-              return [
-                () => route.name === ROUTE_NAME.connections && connectionTabShow.value === tab,
-                () => {
-                  router.push({ name: ROUTE_NAME.connections })
-                  connectionTabShow.value = tab
-                },
-              ]
-            })
-          } else if (r === ROUTE_NAME.rules && ruleProviderList.value.length > 0) {
-            return Object.values(RULE_TAB_TYPE).map((tab) => {
-              return [
-                () => route.name === ROUTE_NAME.rules && rulesTabShow.value === tab,
-                () => {
-                  router.push({ name: ROUTE_NAME.rules })
-                  rulesTabShow.value = tab
-                },
-              ]
-            })
-          }
+    return renderRoutes.value.flatMap((r) => {
+      if (swipeInTabs.value) {
+        if (r === ROUTE_NAME.proxies && proxyProviederList.value.length > 0) {
+          return Object.values(PROXY_TAB_TYPE).map((tab) => {
+            return [
+              () => route.name === ROUTE_NAME.proxies && proxiesTabShow.value === tab,
+              () => {
+                router.push({ name: ROUTE_NAME.proxies })
+                proxiesTabShow.value = tab
+              },
+            ]
+          })
+        } else if (r === ROUTE_NAME.connections) {
+          return Object.values(CONNECTION_TAB_TYPE).map((tab) => {
+            return [
+              () => route.name === ROUTE_NAME.connections && connectionTabShow.value === tab,
+              () => {
+                router.push({ name: ROUTE_NAME.connections })
+                connectionTabShow.value = tab
+              },
+            ]
+          })
+        } else if (r === ROUTE_NAME.rules && ruleProviderList.value.length > 0) {
+          return Object.values(RULE_TAB_TYPE).map((tab) => {
+            return [
+              () => route.name === ROUTE_NAME.rules && rulesTabShow.value === tab,
+              () => {
+                router.push({ name: ROUTE_NAME.rules })
+                rulesTabShow.value = tab
+              },
+            ]
+          })
         }
+      }
 
-        return [[() => route.name === r, () => router.push({ name: r })]]
-      }),
-    )
+      return [[() => route.name === r, () => router.push({ name: r })]]
+    })
   })
 
   const getNextIndexInSwipeList = () => {

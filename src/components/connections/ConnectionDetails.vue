@@ -160,7 +160,6 @@ import {
   ServerIcon,
 } from '@heroicons/vue/24/outline'
 import * as ipaddr from 'ipaddr.js'
-import { last } from 'lodash'
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import VueJsonPretty from 'vue-json-pretty'
@@ -209,7 +208,7 @@ const proxyChainStart = computed(() => {
     return null
   }
 
-  return last(getConnectionChains(infoConn.value))
+  return getConnectionChains(infoConn.value).at(-1) ?? null
 })
 
 const availableTabs = computed<TabType[]>(() =>

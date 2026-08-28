@@ -160,3 +160,62 @@ export const getBackendFromUrl = () => {
   }
   return null
 }
+
+export interface DebouncedFn<T extends (...args: never[]) => unknown> {
+  (...args: Parameters<T>): void
+  cancel: () => void
+}
+
+export function debounce<T extends (...args: never[]) => unknown>(
+  fn: T,
+  delay = 100,
+): DebouncedFn<T> {
+  let timer: number | undefined
+  const debounced = function (this: unknown, ...args: Parameters<T>) {
+    clearTimeout(timer)
+    timer = window.setTimeout(() => {
+      fn.apply(this, args)
+      timer = undefined
+    }, delay)
+  } as DebouncedFn<T>
+  debounced.cancel = () => {
+    clearTimeout(timer)
+    timer = undefined
+  }
+  return debounced
+}
+
+export function throttle<T extends (...args: never[]) => unknown>(
+  fn: T,
+  delay = 100,
+): DebouncedFn<T> {
+  let lastCall = 0
+  let timer: number | undefined
+  const throttled = function (this: unknown, ...args: Parameters<T>) {
+    const now = Date.now()
+    if (now - lastCall >= delay) {
+      lastCall = now
+      fn.apply(this, args)
+    } else if (timer === undefined) {
+      timer = window.setTimeout(
+        () => {
+          lastCall = Date.now()
+          timer = undefined
+          fn.apply(this, args)
+        },
+        delay - (now - lastCall),
+      )
+    }
+  } as DebouncedFn<T>
+  throttled.cancel = () => {
+    clearTimeout(timer)
+    timer = undefined
+  }
+  return throttled
+}
+
+export function isEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true
+  if (a == null || b == null || typeof a !== 'object' || typeof b !== 'object') return false
+  return JSON.stringify(a) === JSON.stringify(b)
+}

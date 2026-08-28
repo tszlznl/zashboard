@@ -1,5 +1,7 @@
 <template>
-  <div :class="`group collapse ${showCollapse ? 'collapse-open' : 'collapse-close'}`">
+  <div
+    :class="`group proxy-group-container collapse ${showCollapse ? 'collapse-open' : 'collapse-close'}`"
+  >
     <div
       class="collapse-title cursor-pointer pr-4"
       @click="showCollapse = !showCollapse"

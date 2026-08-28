@@ -6,18 +6,17 @@ import { notifyRequestError } from '@/helper/requestError'
 import { useStorage } from '@/helper/storage'
 import { groupTestUrls, independentLatencyTest, speedtestUrl } from '@/store/settings'
 import type { Proxy, ProxyProvider } from '@/types'
-import { last } from 'lodash'
-import { computed, ref } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import * as clash from './clash'
 
 export const proxiesFilter = ref('')
 export const proxiesTabShow = ref(PROXY_TAB_TYPE.PROXIES)
 
-export const proxyGroupList = ref<string[]>([])
-export const proxyMap = ref<Record<string, Proxy>>({})
+export const proxyGroupList = shallowRef<string[]>([])
+export const proxyMap = shallowRef<Record<string, Proxy>>({})
 export const IPv6Map = useStorage<Record<string, boolean>>('cache/ipv6-map', {})
 export const hiddenGroupMap = useStorage<Record<string, boolean>>('config/hidden-group-map', {})
-export const proxyProviederList = ref<ProxyProvider[]>([])
+export const proxyProviederList = shallowRef<ProxyProvider[]>([])
 
 export const speedtestUrlWithDefault = computed(() => {
   return speedtestUrl.value || TEST_URL
@@ -41,7 +40,7 @@ export const getTestUrl = (groupName?: string) => {
 }
 
 export const getLatencyFromHistory = (history: Proxy['history']) => {
-  return last(history)?.delay ?? NOT_CONNECTED
+  return history?.at(-1)?.delay ?? NOT_CONNECTED
 }
 
 export const getLatencyByName = (proxyName: string, groupName?: string) => {

@@ -108,3 +108,9 @@
 .settings-category--hidden > .settings-category-body {
   @apply pointer-events-none opacity-40;
 }
+
+/* 代理组与长列表视口渲染优化：屏幕外节点跳过重排与重绘 */
+.proxy-group-container {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 120px;
+}

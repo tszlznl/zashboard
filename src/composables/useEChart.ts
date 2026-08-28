@@ -1,12 +1,11 @@
 import { themeColorScheme, type ThemeColorScheme } from '@/helper/theme'
-import { isMiddleScreen } from '@/helper/utils'
+import { debounce, isMiddleScreen } from '@/helper/utils'
 import { emoji, font } from '@/store/settings'
 import { useElementSize } from '@vueuse/core'
 import { BarChart, LineChart, SankeyChart } from 'echarts/charts'
 import { GridComponent, LegendComponent, TooltipComponent } from 'echarts/components'
 import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { debounce } from 'lodash'
 import type { ComputedRef, Ref } from 'vue'
 import { nextTick, onMounted, onUnmounted, reactive, ref, shallowRef, watch } from 'vue'
 

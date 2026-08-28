@@ -4,6 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { execSync } from 'child_process'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
+import { compression } from 'vite-plugin-compression2'
 import { VitePWA } from 'vite-plugin-pwa'
 import { version } from './package.json'
 
@@ -39,6 +40,8 @@ export default defineConfig({
     vue(),
     vueJsx(),
     ui(),
+    compression({ algorithm: 'gzip' }),
+    compression({ algorithm: 'brotliCompress', exclude: [/\.(br)$/, /\.(gz)$/] }),
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon-dark.svg'],
       workbox: {

@@ -74,7 +74,6 @@
 <script setup lang="ts">
 import { prettyBytesHelper } from '@/helper/utils'
 import { proxyProviederList } from '@/assembly/proxies'
-import { toFinite } from 'lodash'
 import { computed } from 'vue'
 
 interface ProviderTrafficInfo {
@@ -98,7 +97,7 @@ const providersWithTraffic = computed<ProviderTrafficInfo[]>(() => {
       const { Download = 0, Upload = 0, Total = 0 } = provider.subscriptionInfo!
       const used = Download + Upload
       const remaining = Math.max(0, Total - used)
-      const percentage = Total > 0 ? toFinite(((used / Total) * 100).toFixed(2)) : 0
+      const percentage = Total > 0 ? Number(((used / Total) * 100).toFixed(2)) || 0 : 0
 
       return {
         name: provider.name,
@@ -135,7 +134,7 @@ const totalTraffic = computed(() => {
 
 const totalPercentage = computed(() => {
   const { used, total } = totalTraffic.value
-  return total > 0 ? toFinite(((used / total) * 100).toFixed(2)) : 0
+  return total > 0 ? Number(((used / total) * 100).toFixed(2)) || 0 : 0
 })
 
 const totalUsedStr = computed(() => {

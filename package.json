@@ -35,7 +35,6 @@
     "dompurify": "^3.4.12",
     "echarts": "^6.1.0",
     "ipaddr.js": "^2.4.0",
-    "lodash": "^4.18.1",
     "misans": "^4.1.0",
     "p-limit": "^7.3.1",
     "prettier-plugin-organize-imports": "^4.3.0",
@@ -57,7 +56,6 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@tsconfig/node22": "^22.0.5",
-    "@types/lodash": "^4.17.24",
     "@types/node": "^26.1.2",
     "@types/w3c-web-usb": "^1.0.14",
     "@vitejs/plugin-vue": "^6.0.8",
@@ -78,6 +76,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "vite": "^8.1.5",
+    "vite-plugin-compression2": "^2.5.3",
     "vue-tsc": "^3.3.8"
   },
   "packageManager": "pnpm@11.20.0+sha512.9a6f330a95b66446ea088faf1521405a8a01f07fde7124cc9958dfed52d4bb436737e65b08f85f37b46fcba375092558ac51262b816844b22f63406ed166bfee"

@@ -76,7 +76,6 @@ import { fetchProxies } from '@/assembly/proxies'
 import { proxyProviederList } from '@/assembly/proxies'
 import { ArrowPathIcon, BoltIcon } from '@heroicons/vue/24/outline'
 import dayjs from 'dayjs'
-import { toFinite } from 'lodash'
 import { twMerge } from 'tailwind-merge'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -107,7 +106,7 @@ const subscriptionInfo = computed(() => {
     const { t } = useI18n()
     const total = prettyBytesHelper(Total, { binary: true })
     const used = prettyBytesHelper(Download + Upload, { binary: true })
-    const percentage = toFinite((((Download + Upload) / Total) * 100).toFixed(2))
+    const percentage = Number((((Download + Upload) / Total) * 100).toFixed(2)) || 0
     const expireStr =
       Expire === 0
         ? `${t('expire')}: ${t('noExpire')}`

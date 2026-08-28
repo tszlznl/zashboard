@@ -10,7 +10,6 @@ import { GLOBAL, PROXY_TAB_TYPE } from '@/constant'
 import { isHiddenGroup } from '@/helper'
 import { groupsInActiveFolder, isProxyFolderModeActive } from '@/store/proxyFolders'
 import { displayGlobalByMode, manageHiddenGroup } from '@/store/settings'
-import { isEmpty } from 'lodash'
 import { computed, ref } from 'vue'
 import {
   isProxyNodeSearchMode,
@@ -37,7 +36,7 @@ const filterProxyGroups = (groups: string[], respectHiddenGroups = true) => {
 }
 
 const getRenderProxyGroups = () => {
-  if (isEmpty(proxyMap.value)) {
+  if (!proxyMap.value || Object.keys(proxyMap.value).length === 0) {
     return []
   }
 

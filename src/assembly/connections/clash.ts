@@ -3,7 +3,6 @@ import { createClashWebSocket, disconnectAllClashAPI, disconnectClashByIdAPI } f
 import { proxyMap } from '@/assembly/proxies'
 import { PROXY_TYPE } from '@/constant'
 import type { ClashConnectionRawMessage, Connection } from '@/types'
-import { head } from 'lodash'
 import { shallowRef, watch } from 'vue'
 import {
   createGetConnectionDisplayValue,
@@ -87,7 +86,7 @@ const getHostname = (c: ClashConnectionRawMessage) =>
   c.metadata.host || c.metadata.sniffHost || c.metadata.destinationIP
 
 const getFinalProxyType = (c: ClashConnectionRawMessage) =>
-  proxyMap.value[head(c.chains) || '']?.type.toLowerCase()
+  proxyMap.value[c.chains[0] || '']?.type.toLowerCase()
 
 export const connectionAccessor: ConnectionAccessor = {
   chains: (connection) => asClash(connection).chains,

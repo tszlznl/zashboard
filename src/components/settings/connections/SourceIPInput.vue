@@ -52,7 +52,6 @@ import { sourceIPLabelList } from '@/store/settings'
 import { backendList } from '@/store/setup'
 import type { SourceIPLabel } from '@/types'
 import { ArrowRightCircleIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/vue/24/outline'
-import { uniq } from 'lodash'
 import { computed } from 'vue'
 import TextInput from '../../common/TextInput.vue'
 
@@ -63,7 +62,7 @@ const sourceIPLabel = defineModel<Partial<SourceIPLabel>>({
   }),
 })
 const sourceList = computed(() => {
-  return uniq(connections.value.map(getConnectionSourceIP))
+  return [...new Set(connections.value.map(getConnectionSourceIP))]
     .filter(Boolean)
     .filter((ip) => !sourceIPLabelList.value.find((item) => item.key === ip))
     .sort()
